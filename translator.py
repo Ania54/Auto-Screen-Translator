@@ -41,7 +41,12 @@ MMMMSSSSSSSS
 Other configurations are not supported
 """
 
-screen = PIL.ImageGrab.grab((sec_x, 0, sec_x + main_x, main_y) if mainRight else (0, 0, main_x, main_y))
-screen = PIL.ImageEnhance.Contrast(PIL.Image.open("test.png").convert("L")).enhance(2)
+screen = PIL.ImageGrab.grab((sec_x, 0, sec_x + main_x, main_y) if mainRight else (0, 0, main_x, main_y)).save("test.png")
 
-print(pytesseract.image_to_string(screen, lang=src_lang))
+# to do: downscale (divide by 2)
+
+# PIL.ImageEnhance.Contrast(PIL.Image.open("test.png").convert("L")).enhance(2).save("test_e.png")
+
+cv2.imwrite("test_c.png", cv2.threshold(cv2.imread("test.png", cv2.IMREAD_GRAYSCALE), 127, 255, cv2.THRESH_BINARY)[1])
+
+print(pytesseract.image_to_string(PIL.Image.open("test_c.png"), lang=src_lang))
