@@ -4,6 +4,7 @@ import pytesseract
 import googletrans
 import PIL.Image
 import PIL
+import cv2
 
 # Source language
 src_lang = "jpn"
