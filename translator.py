@@ -1,3 +1,4 @@
+import PIL.ImageEnhance
 import PIL.ImageGrab
 import pytesseract
 import googletrans
@@ -40,6 +41,6 @@ Other configurations are not supported
 """
 
 screen = PIL.ImageGrab.grab((sec_x, 0, sec_x + main_x, main_y) if mainRight else (0, 0, main_x, main_y))
-# screen = PIL.Image.open("test.png")
+screen = PIL.ImageEnhance.Contrast(PIL.Image.open("test.png").convert("L")).enhance(2)
 
 print(pytesseract.image_to_string(screen, lang=src_lang))
