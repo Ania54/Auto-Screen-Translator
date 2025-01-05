@@ -1,5 +1,4 @@
 pytesseract==0.3.13
 googletrans==4.0.2
-pygetwindow==0.0.9
 pyautogui==0.9.54
 Pillow==11.1.0
