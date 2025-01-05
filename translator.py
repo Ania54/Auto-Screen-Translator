@@ -3,6 +3,9 @@ import pytesseract
 import googletrans
 import PIL
 
+# Source language
+src_lang = "jpn"
+
 # Main monitor (original text)
 main_x = 1920
 main_y = 1080
@@ -35,4 +38,6 @@ MMMMSSSSSSSS
 Other configurations are not supported
 """
 
-PIL.ImageGrab.grab((sec_x, 0, sec_x + main_x, main_y) if mainRight else (0, 0, main_x, main_y)).show()
+screen = PIL.ImageGrab.grab((sec_x, 0, sec_x + main_x, main_y) if mainRight else (0, 0, main_x, main_y))
+
+print(pytesseract.image_to_string(screen, lang=src_lang))
