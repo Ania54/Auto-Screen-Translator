@@ -1,6 +1,7 @@
 import PIL.ImageGrab
 import pytesseract
 import googletrans
+import PIL.Image
 import PIL
 
 # Source language
@@ -39,5 +40,6 @@ Other configurations are not supported
 """
 
 screen = PIL.ImageGrab.grab((sec_x, 0, sec_x + main_x, main_y) if mainRight else (0, 0, main_x, main_y))
+# screen = PIL.Image.open("test.png")
 
 print(pytesseract.image_to_string(screen, lang=src_lang))
