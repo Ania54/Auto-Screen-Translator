@@ -15,8 +15,9 @@ sec_y = 900
 mainRight = True
 
 """
-Only works for two monitor layouts
-Main monitor can't be shorter than secondary and secondary monitor has to be contained within main monitor's height
+* Only works for two monitor layouts
+* Main monitor can't be shorter than the secondary one
+* Secondary monitor has to be contained within main monitor's height
 
 Examples:
 
@@ -24,12 +25,12 @@ Examples:
 SSSSSSMMMMMMMMMMMMMM
 SSSSSSMMMMMMMMMMMMMM
 SSSSSSMMMMMMMMMMMMMM
-mainRight = True
+(mainRight = True)
 
-MMMMSSSSSS
-MMMMSSSSSS
-MMMMSSSSSS
-mainRight = False
+MMMMSSSSSSSS
+MMMMSSSSSSSS
+MMMMSSSSSSSS
+(mainRight = False)
 
 Other configurations are not supported
 """
