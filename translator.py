@@ -3,45 +3,31 @@ import PIL.ImageGrab
 import pytesseract
 import googletrans
 import PIL.Image
-import PIL
 import cv2
 
-# Source language
-src_lang = "jpn"
-
-# Main monitor (original text)
-main_x = 1920
-main_y = 1080
-
-# Secondary monitor (output text)
-sec_x = 1600
-sec_y = 900
-
-# Is main monitor on the right?
-mainRight = True
+# Source language (OCR)
+src_lang = "jpn+eng"
 
 """
-* Only works for two monitor layouts
-* Main monitor can't be shorter than the secondary one
-* Secondary monitor has to be contained within main monitor's height
 
-Examples:
+bbox = (x1, y1, x2, y2)
+P(x1, y1) is the upper left corner, and Q(x2, y2) is the lower right corner
+These are coordinates of all screens in a layout
 
-......MMMMMMMMMMMMMM
-SSSSSSMMMMMMMMMMMMMM
-SSSSSSMMMMMMMMMMMMMM
-SSSSSSMMMMMMMMMMMMMM
-(mainRight = True)
+So on a dual monitor setup, the points P and Q would be here:
 
-MMMMSSSSSSSS
-MMMMSSSSSSSS
-MMMMSSSSSSSS
-(mainRight = False)
+P       1111111111111111
+        1111111111111111
+222222221111111111111111
+222222221111111111111111
+222222221111111111111111
+22222222               Q
 
-Other configurations are not supported
 """
 
-screen = PIL.ImageGrab.grab((sec_x, 0, sec_x + main_x, main_y) if mainRight else (0, 0, main_x, main_y)).save("test.png")
+bbox = (1600, 0, 3520, 1080)
+
+screen = PIL.ImageGrab.grab(bbox).save("test.png")
 
 # to do: downscale (divide by 2)
 
