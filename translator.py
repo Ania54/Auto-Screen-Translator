@@ -1,5 +1,6 @@
 import time
 import os
+import io
 import base64
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
@@ -27,26 +28,21 @@ while True:
 		time.sleep(.1)
 
 		time.sleep(10)
+                
+		# Open the image using Pillow
+    		image = Image.open(image_path)
 
-		# Find the drop area
-		drop_area = driver.find_element(By.CLASS_NAME, "DBPRyc") # Adjust selector if necessary
+    		# Convert image to raw byte data
+    		byte_io = io.BytesIO()
+    		image.save(byte_io, format='PNG')
+    		byte_data = byte_io.getvalue()
 
-		# Find the drag-and-drop area
-		# Use JavaScript to simulate drag-and-drop
-		file_path = os.path.join(path, os.listdir(path)[0])
-		with open(file_path, "rb") as file:
-			file_data_base64 = base64.b64encode(file.read()).decode('utf-8')  # Base64-encode and convert to a string
-
-		# Inject JavaScript to simulate a drag-and-drop event
-		driver.execute_script("""
-			const dropArea = arguments[0];
-			const fileData = arguments[1];
-			const file = new File([Uint8Array.from(atob(fileData), c => c.charCodeAt(0))], "image.png", { type: "image/png" });
-			const dataTransfer = new DataTransfer();
-			dataTransfer.items.add(file);
-			const dragEvent = new DragEvent("drop", { dataTransfer: dataTransfer });
-			dropArea.dispatchEvent(dragEvent);
-		""", drop_area, file_data_base64)
+    		# Use xclip to copy the image to clipboard
+    		process = subprocess.Popen(
+        		['xclip', '-selection', 'clipboard', '-t', 'image/png'],
+        		stdin=subprocess.PIPE
+    		)
+    		process.communicate(input=byte_data)
 
 		# Optional: Wait to verify upload
 		driver.implicitly_wait(10)
