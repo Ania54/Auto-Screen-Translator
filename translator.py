@@ -1,13 +1,27 @@
 import time
 import os
 import io
-import base64
+import subprocess
+import PIL.Image
 from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import selenium
+from selenium.webdriver.chrome.options import Options
 
-# Set up the WebDriver (use the correct driver for your browser)
-driver = webdriver.Firefox()
+# Configure Chrome options to allow clipboard access
+chrome_options = Options()
+chrome_options.add_experimental_option("prefs", {"profile.default_content_setting_values.clipboard": 1}) # 1 = Allow
+chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+chrome_options.add_experimental_option("useAutomationExtension", False)
+
+# Path to your Chrome user data directory
+# chrome_options = Options()
+# chrome_options.add_argument("--user-data-dir=/home/anilowa/.config/google-chrome/Default")
+
+# Launch browser with your existing profile
+driver = webdriver.Chrome(options=chrome_options)
 
 # Open the target website
 driver.get("https://translate.google.com/?sl=auto&tl=en&op=images")
@@ -27,22 +41,27 @@ while True:
 		# show the image
 		time.sleep(.1)
 
-		time.sleep(10)
-                
 		# Open the image using Pillow
-    		image = Image.open(image_path)
+		image = PIL.Image.open(os.path.join(path, os.listdir(path)[0])) #os.listdir(path)[0])
 
-    		# Convert image to raw byte data
-    		byte_io = io.BytesIO()
-    		image.save(byte_io, format='PNG')
-    		byte_data = byte_io.getvalue()
+		# Convert image to raw byte data
+		byte_io = io.BytesIO()
+		image.save(byte_io, format='PNG')
+		byte_data = byte_io.getvalue()
 
-    		# Use xclip to copy the image to clipboard
-    		process = subprocess.Popen(
-        		['xclip', '-selection', 'clipboard', '-t', 'image/png'],
-        		stdin=subprocess.PIPE
-    		)
-    		process.communicate(input=byte_data)
+		# Use xclip to copy the image to clipboard
+		process = subprocess.Popen(
+			['xclip', '-selection', 'clipboard', '-t', 'image/png'],
+			stdin=subprocess.PIPE)
 
-		# Optional: Wait to verify upload
-		driver.implicitly_wait(10)
+		process.communicate(input=byte_data)
+		
+		# Wait for the button to be clickable
+		WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Accept all']"))).click()
+
+		WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Paste an image from clipboard']"))).click()
+
+		input()
+	
+	else:
+		time.sleep(1)
