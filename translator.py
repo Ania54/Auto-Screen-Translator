@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import selenium
 from selenium.webdriver.chrome.options import Options
+import undetected_chromedriver as uc
 
 # Configure Chrome options to allow clipboard access
 chrome_options = Options()
@@ -21,10 +22,21 @@ chrome_options.add_experimental_option("useAutomationExtension", False)
 # chrome_options.add_argument("--user-data-dir=/home/anilowa/.config/google-chrome/Default")
 
 # Launch browser with your existing profile
-driver = webdriver.Chrome(options=chrome_options)
+# driver = webdriver.Chrome(options=chrome_options)
+driver = uc.Chrome()
+
+# Remove navigator.webdriver property
+driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+	"source": """
+		Object.defineProperty(navigator, 'webdriver', {
+			get: () => undefined
+		})
+	"""
+})
 
 # Open the target website
 driver.get("https://translate.google.com/?sl=auto&tl=en&op=images")
+driver.get("https://translate.google.com/?sl=auto&tl=pl&op=images")
 
 # Path to the image folder, ending with "/"
 # All images in this folder will be deleted at the start of the script and after translating
@@ -33,6 +45,10 @@ path = "/home/anilowa/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Scree
 # Delete all images in path
 # for f in os.listdir(path):
 # 	os.remove(os.path.join(path, f))
+
+WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Accept all']"))).click()
+
+first = True
 
 # wait for new files in path
 while True:
@@ -57,11 +73,15 @@ while True:
 		process.communicate(input=byte_data)
 		
 		# Wait for the button to be clickable
-		WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Accept all']"))).click()
+		if not first:
+			WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Clear image']"))).click()
 
 		WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Paste an image from clipboard']"))).click()
 
-		input()
+		# Delete the image
+		os.remove(os.path.join(path, os.listdir(path)[0]))
+
+		first = False
 	
 	else:
 		time.sleep(1)
