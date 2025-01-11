@@ -25,7 +25,7 @@ profile_path = "/home/anilowa/.config/google-chrome/Default/"
 # Configure Chrome options to allow clipboard access
 chrome_options = options.Options()
 chrome_options.add_argument(f"--user-data-dir={profile_path}")
-chrome_options.add_argument("--profile-directory=Default") # Adjust if using a non-default profile
+chrome_options.add_argument("--profile-directory=Default")
 
 driver = uc.Chrome(options=chrome_options)
 
