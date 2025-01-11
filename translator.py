@@ -1,7 +1,7 @@
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
+import selenium.webdriver.support.expected_conditions as ec
+import selenium.webdriver.chrome.options as options
+import selenium.webdriver.support.ui as ui
+import selenium.webdriver.common.by as by
 import undetected_chromedriver as uc
 import subprocess
 import PIL.Image
@@ -23,7 +23,7 @@ image_path = "/home/anilowa/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu
 profile_path = "/home/anilowa/.config/google-chrome/Default/"
 
 # Configure Chrome options to allow clipboard access
-chrome_options = Options()
+chrome_options = options.Options()
 chrome_options.add_argument(f"--user-data-dir={profile_path}")
 chrome_options.add_argument("--profile-directory=Default") # Adjust if using a non-default profile
 
@@ -61,9 +61,9 @@ while True:
 		
 		# Wait for the button to be clickable
 		if not first:
-			WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Clear image']"))).click()
+			ui.WebDriverWait(driver, 10).until(ec.element_to_be_clickable((by.By.CSS_SELECTOR, "button[aria-label='Clear image']"))).click()
 
-		WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Paste an image from clipboard']"))).click()
+		ui.WebDriverWait(driver, 10).until(ec.element_to_be_clickable((by.By.CSS_SELECTOR, "button[aria-label='Paste an image from clipboard']"))).click()
 
 		# Delete the image
 		os.remove(os.path.join(image_path, os.listdir(image_path)[0]))
