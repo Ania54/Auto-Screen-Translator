@@ -3,11 +3,9 @@ import os
 import io
 import subprocess
 import PIL.Image
-from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-import selenium
 from selenium.webdriver.chrome.options import Options
 import undetected_chromedriver as uc
 
@@ -36,11 +34,12 @@ driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
 
 # Open the target website
 driver.get("https://translate.google.com/?sl=auto&tl=en&op=images")
-driver.get("https://translate.google.com/?sl=auto&tl=pl&op=images")
+# driver.get("https://translate.google.com/?sl=auto&tl=pl&op=images")
 
 # Path to the image folder, ending with "/"
 # All images in this folder will be deleted at the start of the script and after translating
 path = "/home/anilowa/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/ScreenShots/GAEJ01/"
+# path = "/home/anilowa/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/ScreenShots/GAFE01"
 
 # Delete all images in path
 # for f in os.listdir(path):
