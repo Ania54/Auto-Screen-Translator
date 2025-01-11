@@ -19,8 +19,6 @@ path = "/home/anilowa/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Scree
 # Configure Chrome options to allow clipboard access
 chrome_options = Options()
 chrome_options.add_experimental_option("prefs", {"profile.default_content_setting_values.clipboard": 1}) # 1 = Allow
-chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-chrome_options.add_experimental_option("useAutomationExtension", False)
 
 driver = uc.Chrome()
 
