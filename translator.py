@@ -81,6 +81,8 @@ while True:
 		# Delete the image
 		os.remove(os.path.join(path, os.listdir(path)[0]))
 
+		time.sleep(1)
+		
 		first = False
 	
 	else:
