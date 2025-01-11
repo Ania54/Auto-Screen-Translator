@@ -26,8 +26,8 @@ driver = uc.Chrome()
 driver.get(f"https://translate.google.com/?sl=auto&tl={targ_lang}&op=images")
 
 # Delete all images in path
-# for f in os.listdir(path):
-# 	os.remove(os.path.join(path, f))
+for f in os.listdir(path):
+	os.remove(os.path.join(path, f))
 
 WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Accept all']"))).click()
 
