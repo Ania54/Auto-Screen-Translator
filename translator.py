@@ -22,10 +22,14 @@ image_path = "/home/anilowa/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu
 # This profile should be in ~/.config/google-chrome
 profile_path = "/home/anilowa/.config/google-chrome/Default/"
 
+# Position of the Chrome window
+coord = (-1600, 0)
+
 # Configure Chrome options to allow clipboard access
 chrome_options = options.Options()
 chrome_options.add_argument(f"--user-data-dir={profile_path}")
 chrome_options.add_argument("--profile-directory=Default")
+chrome_options.add_argument(f"--window-position={coord[0]},{coord[1]}")
 
 driver = uc.Chrome(options=chrome_options)
 
@@ -43,7 +47,7 @@ while True:
 	if len(os.listdir(image_path)) > 0:
 		
 		# Images which are not yet fully saved will raise errors:
-		
+
 		# PIL.UnidentifiedImageError: cannot identify image file
 
 		# struct.error: unpack_from requires a buffer of at least 4 bytes for unpacking 4 bytes at offset 0 (actual buffer size is 0)
