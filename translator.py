@@ -9,6 +9,13 @@ import time
 import os
 import io
 
+# Translate to this language
+targ_lang = "en"
+
+# Path to the image folder, ending with "/"
+# All images in this folder will be deleted at the start of the script and after translating
+path = "/home/anilowa/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/ScreenShots/GAEJ01/"
+
 # Configure Chrome options to allow clipboard access
 chrome_options = Options()
 chrome_options.add_experimental_option("prefs", {"profile.default_content_setting_values.clipboard": 1}) # 1 = Allow
@@ -33,13 +40,7 @@ driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
 })
 
 # Open the target website
-driver.get("https://translate.google.com/?sl=auto&tl=en&op=images")
-# driver.get("https://translate.google.com/?sl=auto&tl=pl&op=images")
-
-# Path to the image folder, ending with "/"
-# All images in this folder will be deleted at the start of the script and after translating
-path = "/home/anilowa/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/ScreenShots/GAEJ01/"
-# path = "/home/anilowa/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/ScreenShots/GAFE01"
+driver.get(f"https://translate.google.com/?sl=auto&tl={targ_lang}&op=images")
 
 # Delete all images in path
 # for f in os.listdir(path):
