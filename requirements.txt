@@ -1,2 +1,3 @@
-Pillow==11.1.0
-webbot==0.34
+undetected-chromedriver==3.5.5
+selenium==4.27.1
+pillow==11.1.0
