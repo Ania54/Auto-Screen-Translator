@@ -1,13 +1,13 @@
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+import undetected_chromedriver as uc
+import subprocess
+import PIL.Image
 import time
 import os
 import io
-import subprocess
-import PIL.Image
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
-import undetected_chromedriver as uc
 
 # Configure Chrome options to allow clipboard access
 chrome_options = Options()
