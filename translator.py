@@ -13,7 +13,7 @@ import io
 targ_lang = "en"
 
 # Path to the image folder, ending with "/"
-# All images in this folder will be deleted at the start of the script and after translating
+# All images in this folder will be deleted at the start of the script and after translating!
 path = "/home/anilowa/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/ScreenShots/GAEJ01/"
 
 # Configure Chrome options to allow clipboard access
