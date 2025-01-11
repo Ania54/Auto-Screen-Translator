@@ -22,12 +22,6 @@ chrome_options.add_experimental_option("prefs", {"profile.default_content_settin
 chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 chrome_options.add_experimental_option("useAutomationExtension", False)
 
-# Path to your Chrome user data directory
-# chrome_options = Options()
-# chrome_options.add_argument("--user-data-dir=/home/anilowa/.config/google-chrome/Default")
-
-# Launch browser with your existing profile
-# driver = webdriver.Chrome(options=chrome_options)
 driver = uc.Chrome()
 
 # Remove navigator.webdriver property
@@ -82,7 +76,7 @@ while True:
 		os.remove(os.path.join(path, os.listdir(path)[0]))
 
 		time.sleep(1)
-		
+
 		first = False
 	
 	else:
