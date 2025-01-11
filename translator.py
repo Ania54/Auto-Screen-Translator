@@ -40,8 +40,7 @@ first = True
 # wait for new files in path
 while True:
 	if len(os.listdir(image_path)) > 0:
-		# get first file in path
-		# show the image
+		
 		time.sleep(.1)
 
 		# Open the image using Pillow
