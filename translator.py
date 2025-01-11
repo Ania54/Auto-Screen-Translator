@@ -44,20 +44,13 @@ while True:
 		
 		time.sleep(.1)
 
-		# Open the image using Pillow
-		image = PIL.Image.open(os.path.join(image_path, os.listdir(image_path)[0])) #os.listdir(path)[0])
-
 		# Convert image to raw byte data
 		byte_io = io.BytesIO()
-		image.save(byte_io, format='PNG')
+		PIL.Image.open(os.path.join(image_path, os.listdir(image_path)[0])).save(byte_io, format='PNG')
 		byte_data = byte_io.getvalue()
 
 		# Use xclip to copy the image to clipboard
-		process = subprocess.Popen(
-			['xclip', '-selection', 'clipboard', '-t', 'image/png'],
-			stdin=subprocess.PIPE)
-
-		process.communicate(input=byte_data)
+		subprocess.Popen(['xclip', '-selection', 'clipboard', '-t', 'image/png'], stdin=subprocess.PIPE).communicate(input=byte_data)
 		
 		# Wait for the button to be clickable
 		if not first:
