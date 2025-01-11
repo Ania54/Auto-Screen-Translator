@@ -17,6 +17,9 @@ targ_lang = "en"
 image_path = "/home/anilowa/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/ScreenShots/GAEJ01/"
 
 # Path to the Chrome profile
+# Open this profile and press “Accept all” on Google Translate
+# Then try pasting an image and always allow clipboard access
+# This profile should be in ~/.config/google-chrome
 profile_path = "/home/anilowa/.config/google-chrome/Default/"
 
 # Configure Chrome options to allow clipboard access
@@ -32,8 +35,6 @@ driver.get(f"https://translate.google.com/?sl=auto&tl={targ_lang}&op=images")
 # Delete all images in path
 for f in os.listdir(image_path):
 	os.remove(os.path.join(image_path, f))
-
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[aria-label='Accept all']"))).click()
 
 first = True
 
