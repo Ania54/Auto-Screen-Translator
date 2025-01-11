@@ -24,15 +24,6 @@ chrome_options.add_experimental_option("useAutomationExtension", False)
 
 driver = uc.Chrome()
 
-# Remove navigator.webdriver property
-driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
-	"source": """
-		Object.defineProperty(navigator, 'webdriver', {
-			get: () => undefined
-		})
-	"""
-})
-
 # Open the target website
 driver.get(f"https://translate.google.com/?sl=auto&tl={targ_lang}&op=images")
 
